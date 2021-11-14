@@ -1,16 +1,21 @@
-# This is a sample Python script.
+class Solution:
+    def longestValidParentheses(self, input_string: str) -> int:
+        if not input_string:
+            return 0
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+        stack = [-1]
+        max_len = 0
 
+        for index, char in enumerate(input_string):
+            if char == "(":
+                stack.append(index)
+            elif char == ")" and stack:
+                stack.pop()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+            if not stack:
+                stack.append(index)
 
+            if stack and index - stack[-1] > max_len:
+                max_len = index - stack[-1]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        return max_len
